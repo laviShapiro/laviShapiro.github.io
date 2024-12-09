@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PolyBot - The Polymarket Trading Revolution</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0d1117;
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #f0f0f0;
+            text-decoration: none;
+        }
+
+        nav {
+            background: #161b22;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        nav .branding {
+            display: flex;
+            align-items: center;
+        }
+
+        nav .branding img.logo-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        nav .logo {
+            font-weight: 700;
+            font-size: 1.5em;
+            color: #00ccff;
+            text-decoration: none;
+            padding: 20px 0;
+        }
+
+        nav .social-links {
+            display: flex;
+            align-items: center;
+        }
+
+        nav .social-links a {
+            margin-left: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        nav .social-links a:hover {
+            background: #00ccff;
+        }
+
+        nav .social-links img {
+            width: 24px;
+            height: 24px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #007bff, #00ccff);
+            padding: 40px 20px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            transform: skewX(-20deg);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+            font-weight: 700;
+            z-index: 1;
+            position: relative;
+        }
+
+        header p {
+            font-size: 1.3em;
+            margin-top: 10px;
+            z-index: 1;
+            position: relative;
+        }
+
+        header .cta-buttons {
+            margin: 30px 0;
+            z-index: 1;
+            position: relative;
+        }
+
+        header .cta-buttons a {
+            text-decoration: none;
+            color: #fff;
+            background: #0056b3;
+            padding: 15px 30px;
+            border-radius: 5px;
+            margin: 0 10px;
+            font-size: 1em;
+            transition: background 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        header .cta-buttons a:hover {
+            background: #003f7f;
+            transform: scale(1.05);
+        }
+
+        section {
+            padding: 40px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #00ccff;
+            font-weight: 700;
+        }
+
+        section p,
+        section li {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        section ul li {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        section ul li::before {
+            content: "✔";
+            position: absolute;
+            left: -25px;
+            color: #00ccff;
+            font-size: 1.2em;
+        }
+
+        .highlight {
+            color: #00ccff;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #161b22;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 1em;
+        }
+
+        footer .footer-social {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        footer .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #00ccff;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            transition: background 0.3s ease;
+        }
+
+        footer .footer-social a:hover {
+            background: #00ccff;
+        }
+
+        footer .footer-social img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 calc(33% - 40px);
+            min-width: 300px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-card h3 {
+            color: #00ccff;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .faq {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .faq-item h4 {
+            color: #00ccff;
+            margin-bottom: 5px;
+        }
+
+        .faq-item p {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .roadmap-step {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .roadmap-step h3 {
+            margin-bottom: 10px;
+            color: #00ccff;
+        }
+
+        .tokenomics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .token-card {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            min-width: 200px;
+            flex: 1 1 calc(33% - 40px);
+        }
+
+        .token-card h3 {
+            color: #00ccff;
+            margin-bottom: 10px;
+        }
+
+        .token-card p {
+            font-size: 1em;
+        }
+
+        .chain-integration {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .chain-card {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            flex: 1 1 300px;
+        }
+
+        .chain-card h3 {
+            color: #00ccff;
+            margin-bottom: 10px;
+        }
+
+        .chain-card p {
+            font-size: 1em;
+        }
+
+        .advanced-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .advanced-card {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 300px;
+            text-align: center;
+        }
+
+        .advanced-card h3 {
+            color: #00ccff;
+            margin-bottom: 15px;
+        }
+
+        .advanced-card p {
+            font-size: 1em;
+        }
+
+        @media(max-width: 768px) {
+
+            .features,
+            .tokenomics,
+            .chain-integration,
+            .advanced-features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-card,
+            .token-card,
+            .chain-card,
+            .advanced-card {
+                flex: 1 1 100%;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav .social-links {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="branding">
+            <!-- Replace with actual PolyBot logo URL -->
+            <img src="polybot_logo.jpg" alt="PolyBot Logo" class="logo-img">
+            <a class="logo" href="#">PolyBot</a>
+        </div>
+        <div class="social-links">
+            <a href="https://x.com/runpolybot" target="_blank" title="Follow on X">
+                <img src="twitter-x-logo-png_seeklogo-492396.png" alt="X Logo">
+            </a>
+            <a href="https://t.me/run_polybot" target="_blank" title="Launch PolyBot on Telegram">
+                <img src="polybot_logo.jpg" alt="Telegram Logo">
+            </a>
+            <a href="https://t.me/polybot_supports" target="_blank" title="PolyBot Support">
+                <img src="support_logo.jpg" alt="Telegram Logo">
+            </a>
+            <a href="https://t.me/polybot_discussions" target="_blank" title="PolyBot Discussions">
+                <img src="discussions.png" alt="Telegram Logo">
+            </a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>PolyBot</h1>
+        <p>The Polymarket Trading Revolution</p>
+        <div class="cta-buttons">
+            <a href="https://t.me/run_polybot" target="_blank">🚀 Launch PolyBot</a>
+            <a href="https://t.me/polybot_discussions" target="_blank">💬 Community Discussions</a>
+        </div>
+    </header>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>
+            <span style="font-size:1.3em;">GM, frens!</span> <span class="highlight">PolyBot</span> is not just another
+            trading tool—it's an evolution in how you engage with prediction markets on Polymarket. We’re bringing DeFi
+            markets straight to your Telegram, so you can explore, trade, and dominate without switching tabs or
+            juggling complex UIs.
+        </p>
+        <p>
+            Leveraging a secure backend and lightning-fast execution, PolyBot gives you the power to navigate markets,
+            manage positions, and react to real-time order books right where you chat. No more hopping between dApps or
+            browsing convoluted interfaces. With PolyBot, it’s all at your fingertips, wrapped in a friendly interface
+            you already know. WAGMI, anon.
+        </p>
+    </section>
+
+    <section>
+        <h2>Key Features</h2>
+        <div class="features">
+            <div class="feature-card">
+                <h3>Secure & Trustless by Design</h3>
+                <p>
+                    Your private keys never touch any server—ever. All execution happens securely, and you retain
+                    absolute control over your assets. Forget about worrying if someone’s got your keys; here, you’re in
+                    charge.
+                </p>
+            </div>
+            <div class="feature-card">
+                <h3>Streamlined Telegram Interface</h3>
+                <p>
+                    We’ve reimagined the trading experience into simple Telegram commands. Deposit, trade, or cash out
+                    with just a few taps. PolyBot’s code was built to be intuitive, so even if you’re new, you’ll
+                    navigate with confidence.
+                </p>
+            </div>
+            <div class="feature-card">
+                <h3>Instant Action, Zero Friction</h3>
+                <p>
+                    Execute trades in seconds. Seamlessly convert USDC to USDC.e, automatically get POL for fees, and
+                    jump into top markets instantly. Say goodbye to multi-step hassles—speed and simplicity are our
+                    mantra.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>More About the Bot’s Capabilities</h2>
+        <div class="advanced-features">
+            <div class="advanced-card">
+                <h3>Granular Market Data</h3>
+                <p>
+                    Thanks to GraphQL-backed queries and well-structured Python code, PolyBot fetches detailed market
+                    insights on-demand. Browse categories, filter by keywords, and pull up real-time order books.
+                    Knowledge is power—and you’ll have it all in your chat window.
+                </p>
+            </div>
+            <div class="advanced-card">
+                <h3>Flexible Trading Approaches</h3>
+                <p>
+                    Market orders, custom amounts, and soon more advanced order types—our architecture is designed for
+                    adaptability. We’re here to supercharge your strategy, whether you’re a sniper looking for quick
+                    flips or a long-term bull riding the market waves.
+                </p>
+            </div>
+            <div class="advanced-card">
+                <h3>User-Centric Controls</h3>
+                <p>
+                    From exporting your private key to one-click approvals and refreshes, every feature is built around
+                    user autonomy. No convoluted steps, no guesswork, and no endless confirmation loops—just smooth,
+                    transparent operations at every turn.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>How PolyBot Works</h2>
+        <ul>
+            <li>💸 Deposit assets—USDC, USDC.e, POL, and more directly to your PolyBot wallet. Just copy the address and
+                you’re set.</li>
+            <li>🔄 Convert USDC → USDC.e with a single tap, automatically injecting POL for transaction fees. We handle
+                the complexity so you can focus on what matters: making plays.</li>
+            <li>🛡️ Approve contract spending once. After that, no more annoying confirmations. Set it, forget it, and
+                trade freely.</li>
+            <li>📈 Use intuitive commands to navigate markets: check top events, filter by category, or dive deep into
+                specific predictions to find that hidden gem.</li>
+            <li>📊 Manage positions effortlessly. See your "Yes/No" balances, exit your trades, and stay on top of your
+                portfolio without leaving Telegram.</li>
+            <li>🔑 Export your private key anytime for safekeeping. You hold the power. We just give you the toolkit to
+                harness it.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>The $POLYBOT Token: Empowering the Ecosystem</h2>
+        <p>
+            The $POLYBOT token is live and fairly launched—no secret allocations, no insider pre-mines, and no private
+            deals. It’s a clean, transparent, community-first distribution from day one. By holding $POLYBOT, you’re not
+            just holding a token; you’re unlocking a realm of perks designed to enhance your trading edge.
+        </p>
+        <div class="tokenomics">
+            <div class="token-card">
+                <h3>Fair Launch & Community Focus</h3>
+                <p>
+                    $POLYBOT was released with no backroom deals. Early adopters and the community at large share in the
+                    growth. Everyone gets a fair shot at accumulating, staking, and benefiting as the ecosystem expands.
+                </p>
+            </div>
+            <div class="token-card">
+                <h3>Fee Reductions & Rewards</h3>
+                <p>
+                    Holding $POLYBOT tokens slashes your trading fees, unlocking smoother trades and higher margins. As
+                    we grow, expect more perks—exclusive market insights, VIP chats, and richer liquidity rewards for
+                    those who trust the vision.
+                </p>
+            </div>
+            <div class="token-card">
+                <h3>Governance & Influence</h3>
+                <p>
+                    $POLYBOT holders have a voice. Vote on proposed upgrades, from integrating new analytics tools to
+                    tweaking fee models. It’s community-driven evolution. In a world of black-box platforms, we’re
+                    handing the microphone to you.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Roadmap</h2>
+        <div class="roadmap">
+            <div class="roadmap-step">
+                <h3>Current State: The PolyBot Core</h3>
+                <p>
+                    - Fully functional Telegram interface connecting you to Polymarket.<br>
+                    - Fast USDC conversions, instant fee injection, and smooth wallet management.<br>
+                    - $POLYBOT token integrated: start leveraging fee discounts and staking opportunities today.
+                </p>
+            </div>
+            <div class="roadmap-step">
+                <h3>Next Steps: Solana Integration & Beyond</h3>
+                <p>
+                    - Integrate Solana deposits and cross-chain bridging for multi-chain liquidity.<br>
+                    - Advanced features: consider automated strategies, limit orders, and dynamic fee reductions for
+                    active stakers.<br>
+                    - Ongoing refinement of the user experience and community-driven governance initiatives to keep
+                    PolyBot ahead of the curve.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Technical Overview</h2>
+        <p>
+            PolyBot’s backend is built in Python, using Web3.py and GraphQL endpoints to interact directly with on-chain
+            data and Polymarket’s API. The code is structured to be modular and easily extensible—meaning adding Solana
+            or other chains down the line won’t cause friction.
+        </p>
+        <p>
+            Security stands at the core. Your private keys never leave your device. Transactions are signed in a trusted
+            environment. The code’s architecture enables rapid data fetching, dynamic order book displays, and stable
+            performance under load.
+        </p>
+    </section>
+
+    <section>
+        <h2>Example User Journey</h2>
+        <ul>
+            <li>🚀 Fire up PolyBot on Telegram, get your unique wallet address instantly.</li>
+            <li>💰 Send USDC or plug in USDC.e. Convert on the fly and let PolyBot handle the nitty-gritty.</li>
+            <li>✅ Approve contract spending once. Done. No repeated confirmations standing in your way.</li>
+            <li>🔍 Filter by categories or search top markets—find that sweet trade in seconds.</li>
+            <li>💱 Utilize $POLYBOT tokens for fee cuts and add even more alpha to your trades.</li>
+            <li>💸 Cash out with a few taps. No hoops, no headaches.</li>
+        </ul>
+    </section>
+
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h4>Is $POLYBOT already live?</h4>
+            <p>Yes. $POLYBOT tokens are currently available. No future promises or “maybe laters”—it’s here, and it’s
+                fair. Dive in and start reaping the rewards now.</p>
+        </div>
+        <div class="faq-item">
+            <h4>What is USDC.e?</h4>
+            <p>USDC.e is the trading token on Polymarket. PolyBot lets you effortlessly convert your USDC to USDC.e,
+                ensuring you never miss out due to token format issues.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Are my keys safe?</h4>
+            <p>Absolutely. PolyBot never stores your keys on servers. Each transaction is signed securely, so you stay
+                in control at all times.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Why should I hold $POLYBOT?</h4>
+            <p>Fee discounts, community governance, special perks—it’s a no-brainer. Holding $POLYBOT aligns you with
+                the project’s success and future expansions.</p>
+        </div>
+        <div class="faq-item">
+            <h4>I’m new. Can I handle this?</h4>
+            <p>For sure. If you can send a Telegram message, you can use PolyBot. We’ve distilled complexity into a few
+                simple commands. This isn’t just for pros; it’s for everyone ready to tap into real crypto markets.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Join the Community</h2>
+        <p>We’re all about open dialogue, shared insights, and collective growth. Join our groups, ask questions, and
+            help shape the future of PolyBot:</p>
+        <ul>
+            <li><a href="https://t.me/polybot_supports" target="_blank">PolyBot Support</a> - For troubleshooting and
+                assistance.</li>
+            <li><a href="https://t.me/polybot_discussions" target="_blank">PolyBot Discussions</a> - Drop alpha, share
+                market calls, and chill with fellow traders.</li>
+        </ul>
+        <p>Stay updated on X for breaking news, hot takes, and upcoming integrations:</p>
+        <ul>
+            <li><a href="https://x.com/runpolybot" target="_blank">@runpolybot on X</a></li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>© 2024 PolyBot. Built by and for the community, pushing the boundaries of prediction markets.
+            <br><a href="https://t.me/run_polybot" target="_blank">Launch Bot</a> |
+            <a href="https://x.com/runpolybot" target="_blank">Follow on X</a>
+        </p>
+        <div class="footer-social">
+            <a href="https://x.com/runpolybot" target="_blank" title="Follow on X">
+                <img src="twitter-x-logo-png_seeklogo-492396.png" alt="X Logo">
+            </a>
+            <a href="https://t.me/run_polybot" target="_blank" title="Launch PolyBot">
+                <img src="polybot_logo.jpg" alt="Telegram Logo">
+            </a>
+            <a href="https://t.me/polybot_supports" target="_blank" title="Support Group">
+                <img src="support_logo.jpg" alt="Telegram Logo">
+            </a>
+            <a href="https://t.me/polybot_discussions" target="_blank" title="Discussions">
+                <img src="discussions.png" alt="Telegram Logo">
+            </a>
+        </div>
+    </footer>
+</body>
+
+</html>
